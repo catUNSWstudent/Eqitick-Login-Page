@@ -1,0 +1,27 @@
+const express = require('express');
+const bodyParser = require('body-parser');
+const app = express();
+
+// Middleware for parsing form data
+app.use(bodyParser.urlencoded({ extended: true }));
+
+// Route for the login page
+app.get('/', (req, res) => {
+  res.sendFile(__dirname + '/index.html');
+});
+
+// Route to handle login form submission
+app.post('/login', (req, res) => {
+  const { email, password } = req.body;
+
+  // You would check the credentials against your database here
+  if (email === 'user@example.com' && password === 'password123') {
+    res.send('Login successful');
+  } else {
+    res.send('Invalid credentials');
+  }
+});
+
+app.listen(3000, () => {
+  console.log('Server is running on port 3000');
+});
